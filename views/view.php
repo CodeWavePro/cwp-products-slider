@@ -3,18 +3,23 @@ if ( !defined( 'FW' ) ) {
 	die( 'Forbidden' );
 }
 
+// Slides count per one screen.
 $slides_per_screen = ( isset( $atts['slides_per_screen'] ) && $atts['slides_per_screen'] ) ? $atts['slides_per_screen'] : 5;
+// Timer for scrolling slider animation.
 $timer = ( isset( $atts['timer'] ) && $atts['timer'] ) ? $atts['timer'] : 5;
-$timer *= 1000; // Seconds to miliseconds for JS.
+// Seconds to miliseconds for JS.
+$timer *= 1000;
 ?>
 
+<!-- Slider wrapper. -->
 <div class = "cwp-product-slider owl-carousel owl-theme" data-slides = "<?php esc_attr_e( $slides_per_screen ) ?>" data-timer = "<?php esc_attr_e( $timer ) ?>">
 	<?php
-	if ( isset( $atts['is_auto'] ) && ( $atts['is_auto']['fill'] === 'auto_fill' ) ) {	// If "Auto fill" slider content type is selected.
-		$loop = new WP_Query(
+	// If "Auto fill" slider content type is selected.
+	if ( isset( $atts['is_auto'] ) && ( $atts['is_auto']['fill'] === 'auto_fill' ) ) {
+		$loop = new WP_Query(	// Variable for new query.
 			array(
-				'post_type'			=> 'products',
-				'posts_per_page'	=> 30
+				'post_type'			=> 'products',	// Custom post type.
+				'posts_per_page'	=> 30	// Max slides count.
 			)
 		);
 
@@ -23,20 +28,26 @@ $timer *= 1000; // Seconds to miliseconds for JS.
 			?>
 			<div class = "cwp-slide">
 				<div class = "cwp-slide-image" style = "background-image: url(<?php echo get_the_post_thumbnail_url( $id, 'medium' ) ?>)">
+					<!-- Overlays are showing when PLUS icon is clicked. -->
 					<div class = "button-slide-overlay-before_brand"></div>
 					<div class = "button-slide-overlay-before"></div>
+
+					<!-- Buttons are showing when PLUS icon is clicked. -->
 					<div class = "button-slide-overlay animated">
-						<a class = "button animated" href = "#"><?php _e( 'Больше информации', 'mebel-laim' ) ?></a>
+						<a class = "button cwp-slide-more-info-button animated" href = "#"><?php _e( 'Больше информации', 'mebel-laim' ) ?></a>
 						<a class = "button animated" href = "#" style = "animation-delay: 150ms"><?php _e( 'Быстрый заказ', 'mebel-laim' ) ?></a>
 						<a class = "button animated" href = "#" style = "animation-delay: 300ms"><?php _e( 'Добавить в корзину', 'mebel-laim' ) ?></a>
 						<a class = "button animated" href = "<?php the_permalink() ?>" style = "animation-delay: 450ms"><?php _e( 'Перейти к товару', 'mebel-laim' ) ?></a>
 					</div>
 
+					<!-- PLUS icon. -->
 					<a href = "#" class = "product-actions" title = "<?php _e( 'Действия', 'mebel-laim' ) ?>" data-clicked = "0">
+						<!-- Horizontal line. -->
 		 				<span class = "product-actions__line"></span>
+		 				<!-- Vertical line. -->
 		 				<span class = "product-actions__line product-actions__line_vertical"></span>
 		 			</a>
-				</div>
+				</div><!-- .cwp-slide-image -->
 
 				<div class = "cwp-slide-term">
 		 			<?php
@@ -53,7 +64,7 @@ $timer *= 1000; // Seconds to miliseconds for JS.
 		 				}
 		 			}
 		 			?>
-		 		</div>
+		 		</div><!-- .cwp-slide-term -->
 
 				<div class = "cwp-slide-info">
 					<div class = "cwp-slide-title">
@@ -63,7 +74,6 @@ $timer *= 1000; // Seconds to miliseconds for JS.
 			 		</div>
 
 			 		<div class = "cwp-slide-price">
-
 			 			<?php
 		 				/**
 		 				 * If product new price is not empty.
@@ -74,20 +84,38 @@ $timer *= 1000; // Seconds to miliseconds for JS.
 			 				?>
 			 				<span class = "cwp-slide-price__new">
 			 					<?php echo number_format( fw_get_db_post_option( $id, 'new_price' ), 0, '.', ' ' ) ?>
+			 					<!--
+			 					RUBLE icon for currency (from Font Awesome Icons).
+			 					@link https://fontawesome.com/icons
+			 					-->
 			 					<span class = "cwp-slide-price__currency"><i class = "fas fa-ruble-sign"></i></span>
 			 				</span>
 			 				<?php
 			 			}
 			 			?>
-
 			 		</div><!-- .cwp-slide-price -->
 				</div><!-- .cwp-slide-info -->
 			</div><!-- .cwp-slide -->
 			<?php
 		endwhile;
-		wp_reset_query();
-	}	else {
+		wp_reset_query();	// Clearing query for correct work of other loops.
+	}	else {	// If "Manual fill" slider content type is selected.
 		// 
 	}
 	?>
-</div><!-- .cwp-slider -->
+</div><!-- .cwp-product-slider -->
+
+<!-- Hidden block to show more info about product, when .cwp-slide-more-info-button is clicked. -->
+<div class = "cwp-more-info-wrapper">
+	<!-- Close wrapper. -->
+	<a href = "#" class = "close-popup" title = "<?php _e( 'Действия', 'mebel-laim' ) ?>" data-clicked = "0">
+		<!-- Horizontal line. -->
+		<span class = "close-popup__line"></span>
+		<!-- Vertical line. -->
+		<span class = "close-popup__line close-popup__line_vertical"></span>
+	</a>
+
+	<div class = "cwp-more-info">
+		some info
+	</div><!-- .cwp-more-info -->
+</div><!-- .cwp-more-info-wrapper -->

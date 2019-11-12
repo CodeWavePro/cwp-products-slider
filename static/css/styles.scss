@@ -225,7 +225,8 @@ $text: #323232;
 /**
  * Wrapper for PLUS sign on product image.
  */
-.product-actions {
+.product-actions,
+.close-popup {
     position: absolute;
     top: 5px;
     right: 5px;
@@ -242,10 +243,15 @@ $text: #323232;
     &:hover {
         background-color: $brand;
 
-        .product-actions__line {
+        .product-actions__line,
+        .close-popup__line {
             background-color: $white
         }
     }
+}
+
+.close-popup {
+    transform: rotate(45deg)
 }
 
 // Active PLUS sign to be shown as CLOSE sign.
@@ -256,7 +262,8 @@ $text: #323232;
 /**
  * Lines (horizontal & vertical) making PLUS sign on product image.
  */
-.product-actions__line {
+.product-actions__line,
+.close-popup__line {
     display: block;
     width: 30px;
     height: 2px;
@@ -264,9 +271,32 @@ $text: #323232;
     transition: all ease-in-out 300ms
 }
 
-.product-actions__line_vertical {
+.product-actions__line_vertical,
+.close-popup__line_vertical {
     transform: rotate(90deg);
     margin-top: -2px
+}
+
+/**
+ * More info about product, when PLUS icon is clicked.
+ */
+.cwp-more-info-wrapper {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    z-index: 99
+}
+
+// Block for more product info.
+.cwp-more-info {
+    width: 50%;
+    background-color: #fff;
+    height: 100%;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.15)
 }
 
 /*** Media queries ***/

@@ -89,6 +89,22 @@ jQuery( function( $ ) {
 			}
 		} );
 
+		/**
+		 * Show more info about product.
+		 */
+		$( '.cwp-product-slider' ).on( 'click', '.cwp-slide-more-info-button', function( e ) {
+			e.preventDefault();
+			$( '.cwp-more-info-wrapper' ).css( 'display', 'block' );
+		} );
+
+		/**
+		 * Close more info about product.
+		 */
+		$( 'body' ).on( 'click', '.close-popup', function( e ) {
+			e.preventDefault();
+			$( '.cwp-more-info-wrapper' ).css( 'display', 'none' );
+		} );
+
 	} );
 
 } );
