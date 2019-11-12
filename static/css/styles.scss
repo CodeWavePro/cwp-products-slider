@@ -279,3 +279,23 @@ $text: #323232;
         }
     }
 }
+
+@media (max-width : 767px) {
+    .cwp-product-slider {
+        .cwp-slide-text__header {
+            font-size: 14px
+        }
+    }
+
+    .cwp-slide-term__link {
+        font-size: 14px
+    }
+
+    .cwp-slide-price__new {
+        font-size: 23px
+    }
+
+    .cwp-slide-price__currency {
+        font-size: 16px
+    }
+}
