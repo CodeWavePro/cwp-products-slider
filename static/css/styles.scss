@@ -268,3 +268,14 @@ $text: #323232;
     transform: rotate(90deg);
     margin-top: -2px
 }
+
+/*** Media queries ***/
+@media (max-width : 800px) {
+    .section-hot {
+        .fw-col-xs-12 {
+            padding: 0 30px !important;
+            left: 0 !important;
+            width: 100% !important
+        }
+    }
+}
