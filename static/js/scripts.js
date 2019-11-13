@@ -4,7 +4,8 @@ jQuery( function( $ ) {
 	 * When all page is loaded.
 	 */
 	$( document ).ready( function() {
-		var clicked, slide;
+		var clicked, slide;	// For Owl Carousel slide.
+		var data; // For Ajax request.
 
 		/**
 		 * Owl Slider.
@@ -87,14 +88,6 @@ jQuery( function( $ ) {
 					btn.attr( 'data-clicked', 0 );
 				}, 1000 );
 			}
-		} );
-
-		/**
-		 * Show more info about product.
-		 */
-		$( '.cwp-product-slider' ).on( 'click', '.cwp-slide-more-info-button', function( e ) {
-			e.preventDefault();
-			$( '.cwp-more-info-wrapper' ).css( 'display', 'block' );
 		} );
 
 		/**

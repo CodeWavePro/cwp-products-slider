@@ -34,7 +34,7 @@ $timer *= 1000;
 
 					<!-- Buttons are showing when PLUS icon is clicked. -->
 					<div class = "button-slide-overlay animated">
-						<a class = "button cwp-slide-more-info-button animated" href = "#"><?php _e( 'Больше информации', 'mebel-laim' ) ?></a>
+						<a class = "button cwp-slide-more-info-button animated" href = "#" data-id = "<?php esc_attr_e( $id ) ?>"><?php _e( 'Больше информации', 'mebel-laim' ) ?></a>
 						<a class = "button animated" href = "#" style = "animation-delay: 150ms"><?php _e( 'Быстрый заказ', 'mebel-laim' ) ?></a>
 						<a class = "button animated" href = "#" style = "animation-delay: 300ms"><?php _e( 'Добавить в корзину', 'mebel-laim' ) ?></a>
 						<a class = "button animated" href = "<?php the_permalink() ?>" style = "animation-delay: 450ms"><?php _e( 'Перейти к товару', 'mebel-laim' ) ?></a>
@@ -116,6 +116,29 @@ $timer *= 1000;
 	</a>
 
 	<div class = "cwp-more-info">
-		some info
+		<div class = "cwp-more-info-prices">
+			<span class = "cwp-more-info-prices__old"></span>
+			<span class = "cwp-more-info-prices__new"></span>
+		</div>
+
+		<div class = "cwp-more-info-colors"></div>
+		<div class = "cwp-more-info-type"></div>
+		<div class = "cwp-more-info-material"></div>
+		<div class = "cwp-more-info-width"></div>
+		<div class = "cwp-more-info-height"></div>
+		<div class = "cwp-more-info-depth"></div>
+		<div class = "cwp-more-info-text"></div>
+		<div class = "cwp-more-info-number-per-pack"></div>
+		<div class = "cwp-more-info-manufacture-country"></div>
+		<div class = "cwp-more-info-brand-country"></div>
+		<div class = "cwp-more-info-guarantee"></div>
 	</div><!-- .cwp-more-info -->
+
+	<!-- Product image. -->
+	<div class = "cwp-more-info-image-wrapper">
+		<!-- Product main image. -->
+		<img class = "cwp-more-info__image" src = "#" alt = "" />
+		<!-- More product images (if exist). -->
+		<div class = "cwp-more-info-images"></div>
+	</div>
 </div><!-- .cwp-more-info-wrapper -->

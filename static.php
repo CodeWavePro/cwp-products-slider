@@ -9,3 +9,7 @@ wp_enqueue_script(
     'fw-shortcode-cwp-products-slider',
     $uri . '/static/js/scripts.min.js'
 );
+
+// Functions to send a letter via ajax.
+require_once  dirname( __FILE__ ) . '/static/ajax/functions.php';
+?>
