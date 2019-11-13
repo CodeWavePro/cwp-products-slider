@@ -10,6 +10,6 @@ wp_enqueue_script(
     $uri . '/static/js/scripts.min.js'
 );
 
-// Functions to send a letter via ajax.
+// Functions for ajax.
 require_once  dirname( __FILE__ ) . '/static/ajax/functions.php';
 ?>
