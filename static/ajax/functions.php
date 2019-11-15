@@ -13,7 +13,7 @@ add_action( 'wp_enqueue_scripts', 'cwp_products_slider_ajax', 99 );
 function cwp_products_slider_ajax() {
 	$uri = fw_get_template_customizations_directory_uri( '/extensions/shortcodes/shortcodes/cwp-products-slider' );
 	wp_enqueue_script( 'cwpps-js', $uri . '/static/ajax/functions.min.js', array( 'jquery' ) );
-	wp_localize_script( 'cwpps-js', 'cwpAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
+	wp_localize_script( 'cwpps-js', 'cwpAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php', 'relative' ) ) );
 }
 
 /**
