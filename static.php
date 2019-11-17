@@ -10,6 +10,25 @@ wp_enqueue_script(
     $uri . '/static/js/scripts.min.js'
 );
 
-// Functions for ajax.
-require_once  dirname( __FILE__ ) . '/static/ajax/functions.php';
-?>
+/**
+ * Function localizes js file and makes own variable for ajax-url.
+ */
+if ( !is_admin() ) {
+	$uri = fw_get_template_customizations_directory_uri( '/extensions/shortcodes/shortcodes/cwp-products-slider' );
+
+	if ( wp_script_is( 'cwp-products-slider', 'registered' ) ) {
+		return false;
+	}	else {
+		wp_enqueue_script(
+			'cwp-products-slider',
+			$uri . '/static/js/cwp-products-slider.min.js',
+			array( 'jquery' )
+		);
+		wp_localize_script(
+			'cwp-products-slider',
+			'cwpAjax',
+			array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) )
+		);
+	}
+}
+?> 
