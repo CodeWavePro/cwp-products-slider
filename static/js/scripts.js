@@ -6,6 +6,7 @@ jQuery( function( $ ) {
 	$( document ).ready( function() {
 		var clicked, slide;	// For Owl Carousel slide.
 		var data; // For Ajax request.
+		var moreImagesNewActiveImage;	// New image source link in more product images slider.
 
 		/**
 		 * Owl Slider.
@@ -95,7 +96,23 @@ jQuery( function( $ ) {
 		 */
 		$( 'body' ).on( 'click', '.close-popup', function( e ) {
 			e.preventDefault();
-			$( '.cwp-more-info-wrapper' ).css( 'display', 'none' );
+			$( '.cwp-more-info-wrapper' ).css( 'display', 'none' );	// Hide more product info wrapper.
+			$( '.cwp-more-info-image-wrapper' ).css( 'background-image', 'url()' );	// Remove main image from background.
+			// Clearing all HTML blocks.
+			$( '.cwp-more-info-images, .cwp-more-info-prices__old, .cwp-more-info-prices__new, .cwp-more-info-type, .cwp-more-info-material, .cwp-more-info-width, .cwp-more-info-height, .cwp-more-info-depth, .cwp-more-info-text, .cwp-more-info-number-per-pack, .cwp-more-info-manufacture-country, .cwp-more-info-brand-country, .cwp-more-info-guarantee' ).html( '' );
+			$( '.cwp-more-info-images' ).trigger( 'destroy.owl.carousel' );	// Destroy Owl Carousel.
+		} );
+
+		/**
+		 * Change image in more product images slider.
+		 */
+		$( '.cwp-more-info-images' ).on( 'click', '.cwp-more-info-image', function( e ) {
+			e.preventDefault();
+
+			$( '.cwp-more-info-image' ).removeClass( 'cwp-more-info-image_active' );	// Remove active class from all slider images.
+			$( this ).addClass( 'cwp-more-info-image_active' );	// Add active class to current image thumbnail.
+			moreImagesNewActiveImage = $( this ).attr( 'data-src' );	// Get new active slide image link.
+			$( '.cwp-more-info-image-wrapper' ).css( 'background-image', 'url(' + moreImagesNewActiveImage + ')' );	// Set new active image as main big-size product image.
 		} );
 
 	} );

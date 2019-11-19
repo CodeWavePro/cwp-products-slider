@@ -243,8 +243,7 @@ $text: #323232;
     &:hover {
         background-color: $brand;
 
-        .product-actions__line,
-        .close-popup__line {
+        .line {
             background-color: $white
         }
     }
@@ -262,8 +261,7 @@ $text: #323232;
 /**
  * Lines (horizontal & vertical) making PLUS sign on product image.
  */
-.product-actions__line,
-.close-popup__line {
+.line {
     display: block;
     width: 30px;
     height: 2px;
@@ -271,8 +269,7 @@ $text: #323232;
     transition: all ease-in-out 300ms
 }
 
-.product-actions__line_vertical,
-.close-popup__line_vertical {
+.line__cross {
     transform: rotate(90deg);
     margin-top: -2px
 }
@@ -282,6 +279,7 @@ $text: #323232;
  */
 .cwp-more-info-wrapper {
     display: none;
+    grid-template-columns: 50% 50%;
     position: fixed;
     top: 0;
     left: 0;
@@ -293,10 +291,136 @@ $text: #323232;
 
 // Block for more product info.
 .cwp-more-info {
-    width: 50%;
     background-color: #fff;
     height: 100%;
     box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.15)
+}
+
+// Full size image in product more info block.
+.cwp-more-info-image-wrapper {
+    position: relative;
+    background-color: transparent;
+    height: 100%;
+    background-size: cover;
+    background-position: center center
+}
+
+// More product images.
+.cwp-more-info-images {
+    position: absolute !important;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    opacity: 0.25;
+    transition: all ease-in-out 300ms;
+    cursor: pointer;
+
+    .owl-stage-outer,
+    .owl-stage,
+    .owl-item,
+    .cwp-more-info-image {
+        height: inherit
+    }
+
+    &.owl-theme {
+        .owl-nav {
+            margin-top: 0;
+            position: absolute;
+            top: 50%;
+            margin-top: -20px;
+            left: 0;
+            width: 100%;
+            height: 0;
+            padding: 0 5px;
+
+            button {
+                &.owl-prev,
+                &.owl-next {
+                    position: relative;
+                    background-color: transparent;
+                    margin: 0 !important;
+                    height: 50px;
+
+                    &:hover {
+                        background-color: transparent;
+                    }
+                }
+            }
+
+            .owl-prev {
+                float: left;
+
+                .line {
+                    position: relative;
+                    transform: rotate(-45deg);
+                    top: -10px
+                }
+
+                .line__cross {
+                    position: relative;
+                    transform: rotate(45deg);
+                    top: 10px
+                }
+            }
+
+            .owl-next {
+                float: right;
+
+                .line {
+                    position: relative;
+                    transform: rotate(45deg);
+                    top: -10px
+                }
+
+                .line__cross {
+                    position: relative;
+                    transform: rotate(-45deg);
+                    top: 10px
+                }
+            }
+        }
+    }
+
+    &:hover {
+        opacity: 1
+    }
+}
+
+.cwp-more-info-image {
+    background-size: cover;
+    background-position: center center
+}
+
+.cwp-more-info-image_active {
+    border: 3px solid $brand
+}
+
+.product-more-info-preloader {
+    display: grid;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 150;
+    background-color: rgba(255, 255, 255, 0.95);
+    align-content: center;
+    justify-content: center
+}
+
+.product-more-info-preloader__icon {
+    font-size: 100px;
+    animation: spin linear 1s infinite
+}
+
+@keyframes spin {
+    50% {
+        transform: rotate( 180deg )
+    }
+    100% {
+        transform: rotate( 360deg )
+    }
 }
 
 /*** Media queries ***/

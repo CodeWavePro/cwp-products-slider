@@ -8,6 +8,7 @@ jQuery( function( $ ) {
 		var clicked, slide;	// For Owl Carousel slide.
 		var productId; // ID of product which clicked for more info.
 		var ajaxData; // For Ajax request.
+		var owl;	// For Owl Carousel initialization.
 
 		/**
 		 * Show more info about product.
@@ -17,21 +18,59 @@ jQuery( function( $ ) {
 
 			if ( !isActiveAjax ) {	// If user can use ajax.
 				isActiveAjax = true;	// Ajax for other actions is blocked.
+
+				$( 'body' ).append(
+					'<div class = "product-more-info-preloader animated fadeIn">' +
+						'<i class = "fas fa-spinner product-more-info-preloader__icon"></i>' +
+					'</div>'
+				);
+
 				productId = $( this ).attr( 'data-id' );	// Get product ID from .cwp-slide-more-info-button data-id attribute.
 				ajaxData = {
-					action 			: 'show_more',
+					action 			: '_show_more',
 					product_id		: productId
 				};
 
 				$.post( cwpAjax.ajaxurl, ajaxData, function( data ) {	// Ajax post request.
-					console.log( data );
 					switch ( data.success ) {	// Checking ajax response.
 						case true: 	// If ajax response is success.
 							/**
 							 * Filling all more product info fields with response data.
 							 */
 							if ( data.data.thumbnail != '' ) {	// If thumbnail is not empty.
-								$( '.cwp-more-info__image' ).html( data.data.thumbnail );
+								$( '.cwp-more-info-image-wrapper' ).css( 'background-image', 'url(' + data.data.thumbnail + ')' );
+							}
+
+							if ( data.data.more_images != '' ) {	// If more product images array is not empty.
+								$( '.cwp-more-info-images' ).html( data.data.more_images );
+								$( '.cwp-more-info-images' ).addClass( 'owl-carousel owl-theme' );
+
+								/**
+								 * Owl Slider for product images array.
+								 */
+								owl = $( '.cwp-more-info-images' );
+
+								owl.owlCarousel( {
+									autoplay 	: false,
+									items 		: 8,
+							    	loop 		: false,
+								    margin 		: 0,
+								    nav 		: true,
+								    navText		: ['<span class = "line"></span><span class = "line line__cross"></span>','<span class = "line"></span><span class = "line line__cross"></span>'],
+								    dots 		: false,
+								    responsive	: {
+								    	0: {
+								    	},
+								    	500: {
+								    	},
+								    	800: {
+								    	},
+								    	1200: {
+								    	},
+								    	1600: {
+								    	}
+								    }
+							    } );
 							}
 
 							if ( data.data.old_price != '' ) {	// If old price is not empty.
@@ -94,7 +133,12 @@ jQuery( function( $ ) {
 					}
 				} );
 
-				$( '.cwp-more-info-wrapper' ).css( 'display', 'block' );	// Show more info block.
+				$( '.product-more-info-preloader' ).removeClass( 'fadeIn' ).addClass( 'fadeOut' );
+				setTimeout( function() {
+					$( '.product-more-info-preloader' ).remove();
+				}, 1000 );
+
+				$( '.cwp-more-info-wrapper' ).css( 'display', 'grid' );	// Show more info block.
 				isActiveAjax = false;	// User can use ajax ahead.
 			}
 		} );

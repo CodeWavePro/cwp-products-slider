@@ -43,9 +43,9 @@ $timer *= 1000;
 					<!-- PLUS icon. -->
 					<a href = "#" class = "product-actions" title = "<?php _e( 'Действия', 'mebel-laim' ) ?>" data-clicked = "0">
 						<!-- Horizontal line. -->
-		 				<span class = "product-actions__line"></span>
+		 				<span class = "line"></span>
 		 				<!-- Vertical line. -->
-		 				<span class = "product-actions__line product-actions__line_vertical"></span>
+		 				<span class = "line line__cross"></span>
 		 			</a>
 				</div><!-- .cwp-slide-image -->
 
@@ -110,9 +110,9 @@ $timer *= 1000;
 	<!-- Close wrapper. -->
 	<a href = "#" class = "close-popup" title = "<?php _e( 'Действия', 'mebel-laim' ) ?>" data-clicked = "0">
 		<!-- Horizontal line. -->
-		<span class = "close-popup__line"></span>
+		<span class = "line"></span>
 		<!-- Vertical line. -->
-		<span class = "close-popup__line close-popup__line_vertical"></span>
+		<span class = "line line__cross"></span>
 	</a>
 
 	<div class = "cwp-more-info">
@@ -136,8 +136,6 @@ $timer *= 1000;
 
 	<!-- Product image. -->
 	<div class = "cwp-more-info-image-wrapper">
-		<!-- Product main image. -->
-		<img class = "cwp-more-info__image" src = "#" alt = "" />
 		<!-- More product images (if exist). -->
 		<div class = "cwp-more-info-images"></div>
 	</div>

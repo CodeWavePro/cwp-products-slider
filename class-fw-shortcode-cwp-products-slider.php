@@ -8,14 +8,14 @@ class FW_Shortcode_CWP_Products_Slider extends FW_Shortcode {
     }
 
     private function register_ajax() {
-        add_action( 'wp_ajax_show_more', array( $this, 'show_more' ) );
-		add_action( 'wp_ajax_nopriv_show_more', array( $this, 'show_more' ) );
+        add_action( 'wp_ajax__show_more', array( $this, '_show_more' ) );
+		add_action( 'wp_ajax_nopriv__show_more', array( $this, '_show_more' ) );
     }
 
     /**
 	 * Show product more info fields in Products Slider.
 	 */
-    public function show_more() {
+    public function _show_more() {
     	$product_id = $_POST['product_id'];	// Getting product id.
 
 		if ( !is_numeric( $product_id ) ) {	// If product id is not numeric.
@@ -32,9 +32,19 @@ class FW_Shortcode_CWP_Products_Slider extends FW_Shortcode {
 		 * Product thumbnail.
 		 */
 		if ( has_post_thumbnail( $product_id ) ) {
+			// Array for product images.
+			$more_product_images_array = '<div class = "cwp-more-info-image cwp-more-info-image_active" style = "background-image: url(' . get_the_post_thumbnail_url( $product_id, 'full' ) . ')" data-src = "' . get_the_post_thumbnail_url( $product_id, 'full' ) . '"></div>';
+			// Full size product thumbnail.
 			$product_image = get_the_post_thumbnail_url( $product_id, 'full' );
 		}	else {
 			$product_image = '';
+		}
+
+		// More product images.
+		if ( fw_get_db_post_option( $product_id, 'images' ) ) {
+			foreach ( fw_get_db_post_option( $product_id, 'images' ) as $image ) {
+				$more_product_images_array .=  '<div class = "cwp-more-info-image" style = "background-image: url(' . $image['image']['url'] . ')" data-src = "' . $image['image']['url'] . '"></div>';
+			}
 		}
 
 		// Old price.
@@ -125,6 +135,7 @@ class FW_Shortcode_CWP_Products_Slider extends FW_Shortcode {
 		wp_send_json_success(
 			array(
 				'thumbnail' 	=> $product_image,
+				'more_images'	=> $more_product_images_array,
 				'old_price' 	=> $product_price_old,
 				'new_price' 	=> $product_price_new,
 				'type'			=> $product_type,
