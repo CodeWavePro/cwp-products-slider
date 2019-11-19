@@ -96,11 +96,17 @@ jQuery( function( $ ) {
 		 */
 		$( 'body' ).on( 'click', '.close-popup', function( e ) {
 			e.preventDefault();
-			$( '.cwp-more-info-wrapper' ).css( 'display', 'none' );	// Hide more product info wrapper.
-			$( '.cwp-more-info-image-wrapper' ).css( 'background-image', 'url()' );	// Remove main image from background.
-			// Clearing all HTML blocks.
-			$( '.cwp-more-info-images, .cwp-more-info-prices__old, .cwp-more-info-prices__new, .cwp-more-info-type, .cwp-more-info-material, .cwp-more-info-width, .cwp-more-info-height, .cwp-more-info-depth, .cwp-more-info-text, .cwp-more-info-number-per-pack, .cwp-more-info-manufacture-country, .cwp-more-info-brand-country, .cwp-more-info-guarantee' ).html( '' );
-			$( '.cwp-more-info-images' ).trigger( 'destroy.owl.carousel' );	// Destroy Owl Carousel.
+
+			$( '.cwp-more-info' ).removeClass( 'fadeInLeft' ).addClass( 'fadeOutLeft' );	// Hide info with animation.
+			$( '.cwp-more-info-image-wrapper' ).removeClass( 'fadeInRight' ).addClass( 'fadeOutRight' );	// Hide image with animation.
+			$( '.cwp-more-info-wrapper' ).removeClass( 'fadeIn' ).addClass( 'fadeOut' );	// Hide info wrapper with fade animation.
+			setTimeout( function() {
+				$( '.cwp-more-info-wrapper' ).css( 'display', 'none' );	// Hide more product info wrapper.
+				$( '.cwp-more-info-image-wrapper' ).css( 'background-image', 'url()' );	// Remove main image from background.
+				// Clearing all HTML blocks.
+				$( '.cwp-more-info-images, .cwp-more-info-prices__old, .cwp-more-info-prices__new, .cwp-more-info-type, .cwp-more-info-material, .cwp-more-info-width, .cwp-more-info-height, .cwp-more-info-depth, .cwp-more-info-text, .cwp-more-info-number-per-pack, .cwp-more-info-manufacture-country, .cwp-more-info-brand-country, .cwp-more-info-guarantee' ).html( '' );
+				$( '.cwp-more-info-images' ).trigger( 'destroy.owl.carousel' );	// Destroy Owl Carousel.
+			}, 1000 );
 		} );
 
 		/**

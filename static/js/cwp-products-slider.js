@@ -37,6 +37,10 @@ jQuery( function( $ ) {
 							/**
 							 * Filling all more product info fields with response data.
 							 */
+							if ( data.data.title != '' ) {	// If title is not empty.
+								$( '.cwp-more-info__title' ).html( data.data.title );
+							}
+
 							if ( data.data.thumbnail != '' ) {	// If thumbnail is not empty.
 								$( '.cwp-more-info-image-wrapper' ).css( 'background-image', 'url(' + data.data.thumbnail + ')' );
 							}
@@ -133,12 +137,20 @@ jQuery( function( $ ) {
 					}
 				} );
 
-				$( '.product-more-info-preloader' ).removeClass( 'fadeIn' ).addClass( 'fadeOut' );
+				$( '.product-more-info-preloader' ).removeClass( 'fadeIn' ).addClass( 'fadeOut' );	// Hide preloader.
+				$( '.cwp-more-info' ).removeClass( 'fadeOutLeft' ).addClass( 'fadeInLeft' );	// Remove animation hiding class.
+				$( '.cwp-more-info-image-wrapper' ).removeClass( 'fadeOutRight' ).addClass( 'fadeInRight' );	// Remove animation hiding class.
+				$( '.cwp-more-info-wrapper' ).css( 'display', 'grid' );	// Display more info block as CSS-grid.
 				setTimeout( function() {
-					$( '.product-more-info-preloader' ).remove();
+					$( '.cwp-more-info-wrapper' ).removeClass( 'fadeOut' ).addClass( 'fadeIn' );	// Show info wrapper with fade animation.
+				}, 100 );
+
+				setTimeout( function() {
+					$( '.product-more-info-preloader' ).remove();	// Remove preloader from DOM.
+					// $( '.cwp-more-info' ).addClass( 'fadeInLeft' );	// Show info with animation.
+					// $( '.cwp-more-info-image-wrapper' ).addClass( 'fadeInRight' );	// Show image with animation.
 				}, 1000 );
 
-				$( '.cwp-more-info-wrapper' ).css( 'display', 'grid' );	// Show more info block.
 				isActiveAjax = false;	// User can use ajax ahead.
 			}
 		} );

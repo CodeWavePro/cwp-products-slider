@@ -29,8 +29,11 @@ class FW_Shortcode_CWP_Products_Slider extends FW_Shortcode {
 		/**
 		 * Prepairing all existing product fields for sending.
 		 *
-		 * Product thumbnail.
+		 * Product title.
 		 */
+		$product_title = get_the_title( $product_id );
+
+		// If product has thumbnail.
 		if ( has_post_thumbnail( $product_id ) ) {
 			// Array for product images.
 			$more_product_images_array = '<div class = "cwp-more-info-image cwp-more-info-image_active" style = "background-image: url(' . get_the_post_thumbnail_url( $product_id, 'full' ) . ')" data-src = "' . get_the_post_thumbnail_url( $product_id, 'full' ) . '"></div>';
@@ -134,6 +137,7 @@ class FW_Shortcode_CWP_Products_Slider extends FW_Shortcode {
 		// Success ajax message.
 		wp_send_json_success(
 			array(
+				'title'			=> $product_title,
 				'thumbnail' 	=> $product_image,
 				'more_images'	=> $more_product_images_array,
 				'old_price' 	=> $product_price_old,

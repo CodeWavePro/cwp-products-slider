@@ -106,7 +106,7 @@ $timer *= 1000;
 </div><!-- .cwp-product-slider -->
 
 <!-- Hidden block to show more info about product, when .cwp-slide-more-info-button is clicked. -->
-<div class = "cwp-more-info-wrapper">
+<div class = "cwp-more-info-wrapper animated">
 	<!-- Close wrapper. -->
 	<a href = "#" class = "close-popup" title = "<?php _e( 'Действия', 'mebel-laim' ) ?>" data-clicked = "0">
 		<!-- Horizontal line. -->
@@ -115,7 +115,9 @@ $timer *= 1000;
 		<span class = "line line__cross"></span>
 	</a>
 
-	<div class = "cwp-more-info">
+	<div class = "cwp-more-info animated">
+		<h2 class = "cwp-more-info__title"></h2>
+
 		<div class = "cwp-more-info-prices">
 			<span class = "cwp-more-info-prices__old"></span>
 			<span class = "cwp-more-info-prices__new"></span>
@@ -135,7 +137,7 @@ $timer *= 1000;
 	</div><!-- .cwp-more-info -->
 
 	<!-- Product image. -->
-	<div class = "cwp-more-info-image-wrapper">
+	<div class = "cwp-more-info-image-wrapper animated">
 		<!-- More product images (if exist). -->
 		<div class = "cwp-more-info-images"></div>
 	</div>
