@@ -116,29 +116,30 @@ $timer *= 1000;
 	</a>
 
 	<div class = "cwp-more-info animated">
-		<h2 class = "cwp-more-info__title"></h2>
+		<h2 class = "cwp-more-info__title vertical-line-for-header"></h2>
 
 		<div class = "cwp-more-info-prices">
 			<span class = "cwp-more-info-prices__old"></span>
 			<span class = "cwp-more-info-prices__new"></span>
 		</div>
 
-		<div class = "cwp-more-info-colors"></div>
-		<div class = "cwp-more-info-type"></div>
-		<div class = "cwp-more-info-material"></div>
-		<div class = "cwp-more-info-width"></div>
-		<div class = "cwp-more-info-height"></div>
-		<div class = "cwp-more-info-depth"></div>
-		<div class = "cwp-more-info-text"></div>
-		<div class = "cwp-more-info-number-per-pack"></div>
-		<div class = "cwp-more-info-manufacture-country"></div>
-		<div class = "cwp-more-info-brand-country"></div>
-		<div class = "cwp-more-info-guarantee"></div>
+		<div class = "cwp-more-info-item cwp-more-info-colors animated"></div>
+		<div class = "cwp-more-info-item cwp-more-info-type animated"></div>
+		<div class = "cwp-more-info-item cwp-more-info-material animated"></div>
+		<div class = "cwp-more-info-item cwp-more-info-width animated"></div>
+		<div class = "cwp-more-info-item cwp-more-info-height animated"></div>
+		<div class = "cwp-more-info-item cwp-more-info-depth animated"></div>
+		<div class = "cwp-more-info-item cwp-more-info-number-per-pack animated"></div>
+		<div class = "cwp-more-info-item cwp-more-info-manufacture-country animated"></div>
+		<div class = "cwp-more-info-item cwp-more-info-brand-country animated"></div>
+		<div class = "cwp-more-info-item cwp-more-info-guarantee animated"></div>
+		<div class = "cwp-more-info-item cwp-more-info-text animated"></div>
 	</div><!-- .cwp-more-info -->
 
-	<!-- Product image. -->
-	<div class = "cwp-more-info-image-wrapper animated">
+	<div class = "cwp-more-info-right">
+		<!-- Product image. -->
+		<div class = "cwp-more-info-image-wrapper animated"></div>
 		<!-- More product images (if exist). -->
-		<div class = "cwp-more-info-images"></div>
+		<div class = "cwp-more-info-images animated"></div>
 	</div>
 </div><!-- .cwp-more-info-wrapper -->

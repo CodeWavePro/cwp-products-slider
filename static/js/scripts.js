@@ -121,6 +121,16 @@ jQuery( function( $ ) {
 			$( '.cwp-more-info-image-wrapper' ).css( 'background-image', 'url(' + moreImagesNewActiveImage + ')' );	// Set new active image as main big-size product image.
 		} );
 
+		/**
+		 * Product color select.
+		 */
+		$( '.cwp-more-info-colors' ).on( 'click', '.cwp-more-info-colors-item', function( e ) {
+			e.preventDefault();
+
+			$( '.cwp-more-info-colors-item' ).removeClass( 'cwp-more-info-colors-item_active' );	// Remove active class from all product colors.
+			$( this ).addClass( 'cwp-more-info-colors-item_active' );	// Add active class to current product color.
+		} );
+
 	} );
 
 } );

@@ -56,7 +56,7 @@ jQuery( function( $ ) {
 
 								owl.owlCarousel( {
 									autoplay 	: false,
-									items 		: 8,
+									items 		: 12,
 							    	loop 		: false,
 								    margin 		: 0,
 								    nav 		: true,
@@ -75,6 +75,10 @@ jQuery( function( $ ) {
 								    	}
 								    }
 							    } );
+							}
+
+							if ( data.data.colors != '' ) {	// If colors array is not empty.
+								$( '.cwp-more-info-colors' ).html( data.data.colors );
 							}
 
 							if ( data.data.old_price != '' ) {	// If old price is not empty.
@@ -126,6 +130,27 @@ jQuery( function( $ ) {
 							}
 
 							console.log( data.data.message );	// Show success message in console.
+
+							$( '.product-more-info-preloader' ).removeClass( 'fadeIn' ).addClass( 'fadeOut' );	// Hide preloader.
+							$( '.cwp-more-info' ).removeClass( 'fadeOutLeft' ).addClass( 'fadeInLeft' );	// Remove animation hiding class.
+							$( '.cwp-more-info-image-wrapper' ).removeClass( 'fadeOutRight' ).addClass( 'fadeInRight' );	// Remove animation hiding class.
+							$( '.cwp-more-info-wrapper' ).css( 'display', 'grid' );	// Display more info block as CSS-grid.
+
+							// Delay 100 ms after display wrapper to see correct animation.
+							setTimeout(
+								function() {
+									$( '.cwp-more-info-wrapper' ).removeClass( 'fadeOut' ).addClass( 'fadeIn' );	// Show info wrapper with fade animation.
+									$( '.cwp-more-info-item' ).removeClass( 'fadeOut' ).addClass( 'fadeIn' );	// Show info fields with fade animation.
+								},
+								100
+							);
+							// Delay 1 second to play animation, then remove preloader.
+							setTimeout(
+								function() {
+									$( '.product-more-info-preloader' ).remove();	// Remove preloader from DOM.
+								},
+								1000
+							);
 			    			break;
 
 						case false: 	// If we have some errors.
@@ -136,20 +161,6 @@ jQuery( function( $ ) {
 			    			break;
 					}
 				} );
-
-				$( '.product-more-info-preloader' ).removeClass( 'fadeIn' ).addClass( 'fadeOut' );	// Hide preloader.
-				$( '.cwp-more-info' ).removeClass( 'fadeOutLeft' ).addClass( 'fadeInLeft' );	// Remove animation hiding class.
-				$( '.cwp-more-info-image-wrapper' ).removeClass( 'fadeOutRight' ).addClass( 'fadeInRight' );	// Remove animation hiding class.
-				$( '.cwp-more-info-wrapper' ).css( 'display', 'grid' );	// Display more info block as CSS-grid.
-				setTimeout( function() {
-					$( '.cwp-more-info-wrapper' ).removeClass( 'fadeOut' ).addClass( 'fadeIn' );	// Show info wrapper with fade animation.
-				}, 100 );
-
-				setTimeout( function() {
-					$( '.product-more-info-preloader' ).remove();	// Remove preloader from DOM.
-					// $( '.cwp-more-info' ).addClass( 'fadeInLeft' );	// Show info with animation.
-					// $( '.cwp-more-info-image-wrapper' ).addClass( 'fadeInRight' );	// Show image with animation.
-				}, 1000 );
 
 				isActiveAjax = false;	// User can use ajax ahead.
 			}
