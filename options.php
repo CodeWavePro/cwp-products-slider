@@ -46,9 +46,33 @@ $options = array(
 	    'desc'	=> esc_html__( 'Please enter the number of slides', 'mebel-laim' )
     ),
 
+    'slides_max_count'	=> array(
+    	'type'	=> 'text',
+    	'label'	=> esc_html__( 'Maximum Slides Count', 'mebel-laim' ),
+	    'desc'	=> esc_html__( 'Please enter maximum slides count', 'mebel-laim' )
+    ),
+
     'timer'	=> array(
     	'type'	=> 'text',
     	'label'	=> esc_html__( 'Timer (seconds)', 'mebel-laim' ),
 	    'desc'	=> esc_html__( 'Please enter the number of seconds for slider timer', 'mebel-laim' )
+    ),
+
+    'slider_bg_color' => array(
+		'label' => __( 'Background Color', 'mebel-laim' ),
+		'desc'  => __( 'Please select the background color', 'mebel-laim' ),
+		'type'  => 'color-picker'
+	),
+
+	'margin_top'	=> array(
+    	'type'	=> 'text',
+    	'label'	=> esc_html__( 'Margin Top (px)', 'mebel-laim' ),
+	    'desc'	=> esc_html__( 'Please enter margin top value in pixels', 'mebel-laim' )
+    ),
+
+    'margin_bottom'	=> array(
+    	'type'	=> 'text',
+    	'label'	=> esc_html__( 'Margin Bottom (px)', 'mebel-laim' ),
+	    'desc'	=> esc_html__( 'Please enter margin bottom value in pixels', 'mebel-laim' )
     )
 );
