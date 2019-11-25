@@ -214,6 +214,7 @@ class FW_Shortcode_CWP_Products_Slider extends FW_Shortcode {
 		// Success ajax message.
 		wp_send_json_success(
 			array(
+				'product'		=> get_the_permalink( $product_id ),
 				'title'			=> $product_title,
 				'thumbnail' 	=> $product_image,
 				'more_images'	=> $more_product_images_array,

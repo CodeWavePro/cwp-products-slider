@@ -134,6 +134,12 @@ $timer *= 1000;
 		<div class = "cwp-more-info-item cwp-more-info-brand-country animated"></div>
 		<div class = "cwp-more-info-item cwp-more-info-guarantee animated"></div>
 		<div class = "cwp-more-info-item cwp-more-info-text animated"></div>
+
+		<div class = "cwp-more-info-buttons">
+			<a class = "button cwp-more-info_button button_go-to-product" href = "#"><?php _e( 'На страницу товара', 'mebel-laim' ) ?></a>
+			<a class = "button cwp-more-info_button button_add-to-cart" href = "#"><?php _e( 'Добавить в корзину', 'mebel-laim' ) ?></a>
+			<a class = "button cwp-more-info_button button_quick-order" href = "#"><?php _e( 'Быстрый заказ', 'mebel-laim' ) ?></a>
+		</div>
 	</div><!-- .cwp-more-info -->
 
 	<div class = "cwp-more-info-right">

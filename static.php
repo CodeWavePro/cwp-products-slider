@@ -5,10 +5,6 @@ wp_enqueue_style(
     'fw-shortcode-cwp-products-slider',
     $uri . '/static/css/styles.css'
 );
-wp_enqueue_script(
-    'fw-shortcode-cwp-products-slider',
-    $uri . '/static/js/scripts.min.js'
-);
 
 /**
  * Function localizes js file and makes own variable for ajax-url.
@@ -21,7 +17,7 @@ if ( !is_admin() ) {
 	}	else {
 		wp_enqueue_script(
 			'cwp-products-slider',
-			$uri . '/static/js/cwp-products-slider.min.js',
+			$uri . '/static/js/scripts.min.js',
 			array( 'jquery' )
 		);
 		wp_localize_script(

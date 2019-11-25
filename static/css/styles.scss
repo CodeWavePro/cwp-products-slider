@@ -199,26 +199,11 @@ $text: #323232;
     transition: all ease-in-out 300ms;
 
     .button {
-    	background-color: transparent;
-    	color: $brand;
-    	opacity: 0;
-    	margin-bottom: 15px;
+        margin-bottom: 15px;
 
     	&:last-child {
     		margin: 30px 0 0
     	}
-
-    	&:hover {
-    		border-radius: 30px;
-    		background-color: $brand;
-    		color: $white !important
-    	}
-
-    	&:visited,
-	    &:active,
-	    &:focus {
-	        color: $brand
-	    }
     }
 }
 
@@ -297,6 +282,7 @@ $text: #323232;
     height: 100%;
     box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.15);
     padding: 80px 30px 20px;
+    overflow-y: scroll;
     z-index: 1
 }
 
@@ -504,10 +490,9 @@ $text: #323232;
 // Specification item.
 .cwp-more-info-item {
     opacity: 0;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
     border-bottom: 1px solid #f0f0f0;
     padding-bottom: 5px;
-    font-size: 18px;
 
     &:last-of-type {
         margin-bottom: 0
@@ -580,6 +565,17 @@ $text: #323232;
     background-size: cover;
     background-position: center center;
     transition: all ease-in-out 300ms
+}
+
+// More info buttons wrapper.
+.cwp-more-info-buttons {
+    margin-top: 30px;
+    text-align: center
+}
+
+// More info buttons block single button.
+.cwp-more-info_button {
+    margin: 10px
 }
 
 /*** Media queries ***/
