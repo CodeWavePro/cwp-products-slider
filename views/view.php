@@ -19,17 +19,17 @@ $margin_top = ( isset( $atts['margin_top'] ) && $atts['margin_top'] ) ? $atts['m
 $margin_bottom = ( isset( $atts['margin_bottom'] ) && $atts['margin_bottom'] ) ? $atts['margin_bottom'] : '50';
 ?>
 
-<section class = "fw-main-row section-cwp-products-slider" style = "background-color: <?php esc_attr_e( $slider_bg_color ) ?>">
+<section class = "fw-main-row section-cwp-products-slider" style = "background-color: <?php echo esc_attr( $slider_bg_color ) ?>">
 	<div class = "fw-container-fluid">
 		<div class = "fw-row">
 			<div class = "fw-col-xs-12">
 				<!-- Slider wrapper. -->
 				<div class = "cwp-product-slider owl-carousel owl-theme"
-					 data-slides = "<?php esc_attr_e( $slides_per_screen ) ?>"
-					 data-timer = "<?php esc_attr_e( $timer ) ?>"
-					 style = "background-color: <?php esc_attr_e( $slider_bg_color ) ?>;
-					 		  margin-top: <?php esc_attr_e( $margin_top ) ?>px;
-					 		  margin-bottom: <?php esc_attr_e( $margin_bottom ) ?>px">
+					 data-slides = "<?php echo esc_attr( $slides_per_screen ) ?>"
+					 data-timer = "<?php echo esc_attr( $timer ) ?>"
+					 style = "background-color: <?php echo esc_attr( $slider_bg_color ) ?>;
+					 		  margin-top: <?php echo esc_attr( $margin_top ) ?>px;
+					 		  margin-bottom: <?php echo esc_attr( $margin_bottom ) ?>px">
 
 					<?php
 					// If "Auto fill" slider content type is selected.
@@ -45,17 +45,25 @@ $margin_bottom = ( isset( $atts['margin_bottom'] ) && $atts['margin_bottom'] ) ?
 							$id = get_the_ID();	// Current product ID.
 							?>
 							<div class = "cwp-slide">
-								<div class = "cwp-slide-image" style = "background-image: url(<?php echo get_the_post_thumbnail_url( $id, 'medium' ) ?>)">
+								<div class = "cwp-slide-image" style = "background-image: url(<?php echo esc_url( get_the_post_thumbnail_url( $id, 'medium' ) ) ?>)">
 									<!-- Overlays are showing when PLUS icon is clicked. -->
 									<div class = "button-slide-overlay-before_brand"></div>
 									<div class = "button-slide-overlay-before"></div>
 
 									<!-- Buttons are showing when PLUS icon is clicked. -->
 									<div class = "button-slide-overlay animated">
-										<a class = "button cwp-slide-more-info-button animated" href = "#" data-id = "<?php esc_attr_e( $id ) ?>"><?php _e( 'Больше информации', 'mebel-laim' ) ?></a>
-										<a class = "button animated" href = "#" style = "animation-delay: 150ms"><?php _e( 'Быстрый заказ', 'mebel-laim' ) ?></a>
-										<a class = "button animated" href = "#" style = "animation-delay: 300ms"><?php _e( 'Добавить в корзину', 'mebel-laim' ) ?></a>
-										<a class = "button animated" href = "<?php the_permalink() ?>" style = "animation-delay: 450ms"><?php _e( 'Перейти к товару', 'mebel-laim' ) ?></a>
+										<a class = "button cwp-slide-more-info-button animated" href = "#" data-id = "<?php echo esc_attr( $id ) ?>">
+											<?php esc_html_e( 'Больше информации', 'mebel-laim' ) ?>
+										</a>
+										<a class = "button animated" href = "#" style = "animation-delay: 150ms">
+											<?php esc_html_e( 'Быстрый заказ', 'mebel-laim' ) ?>
+										</a>
+										<a class = "button animated" href = "#" style = "animation-delay: 300ms">
+											<?php esc_html_e( 'Добавить в корзину', 'mebel-laim' ) ?>											
+										</a>
+										<a class = "button animated" href = "<?php echo esc_url( the_permalink() ) ?>" style = "animation-delay: 450ms">
+											<?php esc_html_e( 'Перейти к товару', 'mebel-laim' ) ?>
+										</a>
 									</div>
 
 									<!-- PLUS icon. -->
@@ -76,7 +84,9 @@ $margin_bottom = ( isset( $atts['margin_bottom'] ) && $atts['margin_bottom'] ) ?
 						 			foreach ( $terms as $term ) {
 						 				if ( count( get_term_children( $term->term_id, 'products' ) ) === 0 ) {
 						 					?>
-						 					<a class = "cwp-slide-term__link" href = "<?php echo get_term_link( $term->term_id, 'products' ) ?>"><?php esc_html_e( $term->name, 'mebel-laim' ) ?></a>
+						 					<a class = "cwp-slide-term__link" href = "<?php echo esc_url( get_term_link( $term->term_id, 'products' ) ) ?>">
+						 						<?php printf( esc_html__( '%s', 'mebel-laim' ), $term->name ) ?>
+						 					</a>
 						 					<?php
 						 					break;
 						 				}
@@ -131,21 +141,24 @@ $margin_bottom = ( isset( $atts['margin_bottom'] ) && $atts['margin_bottom'] ) ?
 <!-- Hidden block to show more info about product, when .cwp-slide-more-info-button is clicked. -->
 <div class = "cwp-more-info-wrapper animated">
 	<!-- Close wrapper. -->
-	<a href = "#" class = "close-popup" title = "<?php _e( 'Действия', 'mebel-laim' ) ?>" data-clicked = "0">
+	<a href = "#" class = "close-popup" title = "<?php esc_attr_e( 'Действия', 'mebel-laim' ) ?>" data-clicked = "0">
 		<!-- Horizontal line. -->
 		<span class = "line"></span>
 		<!-- Vertical line. -->
 		<span class = "line line__cross"></span>
 	</a>
 
+	<!-- More information about product: fields & buttons. -->
 	<div class = "cwp-more-info animated">
+		<!-- Product name. -->
 		<h2 class = "cwp-more-info__title vertical-line-for-header"></h2>
 
+		<!-- Prices: old & actual. -->
 		<div class = "cwp-more-info-prices">
 			<span class = "cwp-more-info-prices__old"></span>
 			<span class = "cwp-more-info-prices__new"></span>
 		</div>
-
+		<!-- Other meta-fields. -->
 		<div class = "cwp-more-info-item cwp-more-info-colors animated"></div>
 		<div class = "cwp-more-info-item cwp-more-info-type animated"></div>
 		<div class = "cwp-more-info-item cwp-more-info-material animated"></div>
@@ -158,13 +171,21 @@ $margin_bottom = ( isset( $atts['margin_bottom'] ) && $atts['margin_bottom'] ) ?
 		<div class = "cwp-more-info-item cwp-more-info-guarantee animated"></div>
 		<div class = "cwp-more-info-item cwp-more-info-text animated"></div>
 
+		<!-- Buttons wrapper. -->
 		<div class = "cwp-more-info-buttons">
-			<a class = "button cwp-more-info_button button_go-to-product" href = "#"><?php _e( 'На страницу товара', 'mebel-laim' ) ?></a>
-			<a class = "button cwp-more-info_button button_add-to-cart" href = "#"><?php _e( 'Добавить в корзину', 'mebel-laim' ) ?></a>
-			<a class = "button cwp-more-info_button button_quick-order" href = "#"><?php _e( 'Быстрый заказ', 'mebel-laim' ) ?></a>
+			<a class = "button cwp-more-info_button button_go-to-product" href = "#">
+				<?php esc_html_e( 'На страницу товара', 'mebel-laim' ) ?>
+			</a>
+			<a class = "button cwp-more-info_button button_add-to-cart" href = "#">
+				<?php esc_html_e( 'Добавить в корзину', 'mebel-laim' ) ?>
+			</a>
+			<a class = "button cwp-more-info_button button_quick-order" href = "#">
+				<?php esc_html_e( 'Быстрый заказ', 'mebel-laim' ) ?>
+			</a>
 		</div>
 	</div><!-- .cwp-more-info -->
 
+	<!-- Right part with images. -->
 	<div class = "cwp-more-info-right">
 		<!-- Product image. -->
 		<div class = "cwp-more-info-image-wrapper animated"></div>
