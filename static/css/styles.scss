@@ -631,6 +631,12 @@ $text: #323232;
 }
 
 @media (max-width : 767px) {
+    .fw-main-row {
+        .fw-container-fluid {
+            padding: 0
+        }
+    }
+
     .section-cwp-products-slider {
         .fw-col-xs-12 {
             left: 0;
