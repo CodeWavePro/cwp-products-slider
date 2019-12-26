@@ -55,9 +55,11 @@ $text: #323232;
     		text-align: left;
 
     		.owl-dot {
+                margin-right: 5px;
+
     			span {
     				width: 100px;
-					height: 5px;
+					height: 3px;
 					margin: 0;
     				color: #f0f0f0;
     				border-radius: 0;
@@ -69,6 +71,10 @@ $text: #323232;
     					background-color: #b5b5b5
     				}
     			}
+
+                &:last-of-type {
+                    margin-right: 0
+                }
     		}
     	}
 
@@ -633,7 +639,7 @@ $text: #323232;
 @media (max-width : 767px) {
     .fw-main-row {
         .fw-container-fluid {
-            padding: 0
+            padding: 0 15px
         }
     }
 
@@ -651,6 +657,16 @@ $text: #323232;
 
         .cwp-slide {
             max-width: 290px
+        }
+
+        &.owl-theme {
+            .owl-dots {
+                .owl-dot {
+                    span {
+                        width: 50px
+                    }
+                }
+            }
         }
     }
 
