@@ -3,6 +3,8 @@ if ( !defined( 'FW' ) ) {
 	die( 'Forbidden' );
 }
 
+$is_auto = ( isset( $atts['is_auto'] ) && ( $atts['is_auto']['fill'] === 'auto_fill' ) ) ? true : false;
+
 // Slides count per one screen.
 $slides_per_screen = ( isset( $atts['slides_per_screen'] ) && $atts['slides_per_screen'] ) ? $atts['slides_per_screen'] : 5;
 // Slides max count.
@@ -17,6 +19,10 @@ $slider_bg_color = ( isset( $atts['slider_bg_color'] ) && $atts['slider_bg_color
 $margin_top = ( isset( $atts['margin_top'] ) && $atts['margin_top'] ) ? $atts['margin_top'] : '0';
 // Margin bottom.
 $margin_bottom = ( isset( $atts['margin_bottom'] ) && $atts['margin_bottom'] ) ? $atts['margin_bottom'] : '50';
+// Icon for every specification field.
+$currency_icon = ( isset( $atts['currency_icon'] ) && $atts['currency_icon'] ) ? '<i class = "' . esc_attr( $atts['currency_icon']['icon-class'] ) . '"></i>' : '';
+// Icon for preloader.
+$preloader_icon = ( isset( $atts['preloader_icon'] ) && $atts['preloader_icon'] ) ? $atts['preloader_icon']['icon-class'] : '';
 ?>
 
 <section class = "fw-main-row section-cwp-products-slider" style = "background-color: <?php echo esc_attr( $slider_bg_color ) ?>">
@@ -27,13 +33,14 @@ $margin_bottom = ( isset( $atts['margin_bottom'] ) && $atts['margin_bottom'] ) ?
 				<div class = "cwp-product-slider owl-carousel owl-theme"
 					 data-slides = "<?php echo esc_attr( $slides_per_screen ) ?>"
 					 data-timer = "<?php echo esc_attr( $timer ) ?>"
+					 data-preloader = "<?php echo esc_attr( $preloader_icon ) ?>"
 					 style = "background-color: <?php echo esc_attr( $slider_bg_color ) ?>;
 					 		  margin-top: <?php echo esc_attr( $margin_top ) ?>px;
 					 		  margin-bottom: <?php echo esc_attr( $margin_bottom ) ?>px">
 
 					<?php
 					// If "Auto fill" slider content type is selected.
-					if ( isset( $atts['is_auto'] ) && ( $atts['is_auto']['fill'] === 'auto_fill' ) ) {
+					if ( $is_auto ) {
 						$loop = new WP_Query(	// Variable for new query.
 							array(
 								'post_type'			=> 'products',	// Custom post type.
@@ -128,7 +135,91 @@ $margin_bottom = ( isset( $atts['margin_bottom'] ) && $atts['margin_bottom'] ) ?
 						endwhile;
 						wp_reset_query();	// Clearing query for correct work of other loops.
 					}	else {	// If "Manual fill" slider content type is selected.
-						// 
+						if ( isset( $atts['is_auto']['manually_fill']['slider'] ) &&
+							 $atts['is_auto']['manually_fill']['slider'] ) {
+							foreach ( $atts['is_auto']['manually_fill']['slider'] as $id ) {
+								?>
+								<div class = "cwp-slide">
+									<div class = "cwp-slide-image" style = "background-image: url(<?php echo esc_url( get_the_post_thumbnail_url( $id, 'medium' ) ) ?>)">
+										<!-- Overlays are showing when PLUS icon is clicked. -->
+										<div class = "button-slide-overlay-before_brand"></div>
+										<div class = "button-slide-overlay-before"></div>
+
+										<!-- Buttons are showing when PLUS icon is clicked. -->
+										<div class = "button-slide-overlay animated">
+											<a class = "button cwp-slide-more-info-button animated" href = "#" data-id = "<?php echo esc_attr( $id ) ?>">
+												<?php esc_html_e( 'Больше информации', 'mebel-laim' ) ?>
+											</a>
+											<a class = "button animated" href = "#" style = "animation-delay: 150ms">
+												<?php esc_html_e( 'Быстрый заказ', 'mebel-laim' ) ?>
+											</a>
+											<a class = "button animated" href = "#" style = "animation-delay: 300ms">
+												<?php esc_html_e( 'Добавить в корзину', 'mebel-laim' ) ?>											
+											</a>
+											<a class = "button animated" href = "<?php echo esc_url( get_the_permalink( $id ) ) ?>" style = "animation-delay: 450ms">
+												<?php esc_html_e( 'Перейти к товару', 'mebel-laim' ) ?>
+											</a>
+										</div>
+
+										<!-- PLUS icon. -->
+										<a href = "#" class = "product-actions" title = "<?php esc_attr_e( 'Действия', 'mebel-laim' ) ?>" data-clicked = "0">
+											<!-- Horizontal line. -->
+							 				<span class = "line"></span>
+							 				<!-- Vertical line. -->
+							 				<span class = "line line__cross"></span>
+							 			</a>
+									</div><!-- .cwp-slide-image -->
+
+									<div class = "cwp-slide-term">
+							 			<?php
+							 			// Getting all terms of current product in taxonomy "products".
+							 			$terms = wp_get_post_terms( $id, 'products' );
+
+							 			// Searching if one of terms has no child terms - this is the lowest term, we need it.
+							 			foreach ( $terms as $term ) {
+							 				if ( count( get_term_children( $term->term_id, 'products' ) ) === 0 ) {
+							 					?>
+							 					<a class = "cwp-slide-term__link" href = "<?php echo esc_url( get_term_link( $term->term_id, 'products' ) ) ?>">
+							 						<?php printf( esc_html__( '%s', 'mebel-laim' ), $term->name ) ?>
+							 					</a>
+							 					<?php
+							 					break;
+							 				}
+							 			}
+							 			?>
+							 		</div><!-- .cwp-slide-term -->
+
+									<div class = "cwp-slide-info">
+										<div class = "cwp-slide-title">
+								 			<h3 class = "cwp-slide-text__header">
+								 				<?php echo get_the_title( $id ) ?>
+								 			</h3>
+								 		</div>
+
+								 		<div class = "cwp-slide-price">
+								 			<?php
+							 				/**
+							 				 * If product new price is not empty.
+							 				 * 
+							 				 * @ Product -> Prices -> New Price.
+							 				 */
+								 			if ( fw_get_db_post_option( $id, 'new_price' ) ) {
+								 				?>
+								 				<span class = "cwp-slide-price__new">
+								 					<?php echo number_format( fw_get_db_post_option( $id, 'new_price' ), 0, '.', ' ' ) ?>
+								 					<span class = "cwp-slide-price__currency">
+								 						<?php echo $currency_icon ?>
+								 					</span>
+								 				</span>
+								 				<?php
+								 			}
+								 			?>
+								 		</div><!-- .cwp-slide-price -->
+									</div><!-- .cwp-slide-info -->
+								</div><!-- .cwp-slide -->
+								<?php
+							}
+						}
 					}
 					?>
 
@@ -154,14 +245,7 @@ $margin_bottom = ( isset( $atts['margin_bottom'] ) && $atts['margin_bottom'] ) ?
 		<h2 class = "cwp-more-info__title vertical-line-for-header"></h2>
 
 		<!-- Prices: old & actual. -->
-		<div class = "cwp-more-info-prices">
-			<?php
-			// Icon for every specification field.
-			$currency_icon = ( isset( $atts['currency_icon'] ) && $atts['currency_icon'] ) ?
-							 '<i class = "' . esc_attr( $atts['currency_icon']['icon-class'] ) . '"></i>' :
-							 '';
-			?>
-			
+		<div class = "cwp-more-info-prices">			
 			<span class = "cwp-more-info-prices__old">
 				<span class = "cwp-more-info-prices__value"></span>
 				<span class = "cwp-more-info-prices__currency">

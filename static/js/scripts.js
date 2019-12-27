@@ -2,6 +2,19 @@ jQuery( function( $ ) {
 	var isActiveAjax = false;
 
 	/**
+	 * Preloader appearing function.
+	 *
+	 * @param preloaderClass - class name of preloader wrapper to remove it after loading data.
+	 */
+	function appendProductPreloader( preloaderClass, iconClass ) {
+		$( 'body' ).append(
+			'<div class = "' + preloaderClass + ' animated fadeIn">' +
+				'<i class = "' + iconClass + ' product-more-info-preloader__icon"></i>' +
+			'</div>'
+		);
+	}
+
+	/**
 	 * When all page is loaded.
 	 */
 	$( document ).ready( function() {
@@ -10,6 +23,7 @@ jQuery( function( $ ) {
 		var productId; // ID of product which clicked for more info.
 		var ajaxData; // For Ajax request.
 		var owl, sliderItems, sliderTimer;	// For Owl Carousel initialization.
+		var preloaderIcon = $( '.cwp-product-slider' ).attr( 'data-preloader' );
 
 		/**
 		 * Owl Slider.
@@ -121,11 +135,7 @@ jQuery( function( $ ) {
 					btn.attr( 'data-clicked', 0 );
 				}, 1000 );
 
-				$( 'body' ).append(
-					'<div class = "product-more-info-preloader animated fadeIn">' +
-						'<i class = "fas fa-spinner product-more-info-preloader__icon"></i>' +
-					'</div>'
-				);
+				appendProductPreloader( 'product-more-info-preloader', preloaderIcon );
 
 				productId = $( this ).attr( 'data-id' );	// Get product ID from .cwp-slide-more-info-button data-id attribute.
 				ajaxData = {
@@ -284,7 +294,7 @@ jQuery( function( $ ) {
 				$( '.cwp-more-info-wrapper' ).css( 'display', 'none' );	// Hide more product info wrapper.
 				$( '.cwp-more-info-image-wrapper' ).css( 'background-image', 'url()' );	// Remove main image from background.
 				// Clearing all HTML blocks.
-				$( '.cwp-more-info-item' ).html( '' );
+				$( '.cwp-more-info-item .cwp-product__value' ).html( '' );
 				$( '.cwp-more-info-images' ).trigger( 'destroy.owl.carousel' );	// Destroy Owl Carousel.
 			}, 1000 );
 		} );
