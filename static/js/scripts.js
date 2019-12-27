@@ -187,51 +187,51 @@ jQuery( function( $ ) {
 							}
 
 							if ( data.data.old_price != '' ) {	// If old price is not empty.
-								$( '.cwp-more-info-prices__old' ).html( data.data.old_price );
+								$( '.cwp-more-info-prices__old .cwp-more-info-prices__value' ).html( data.data.old_price );
 							}
 
 							if ( data.data.new_price != '' ) {	// If new price is not empty.
-								$( '.cwp-more-info-prices__new' ).html( data.data.new_price );
+								$( '.cwp-more-info-prices__new .cwp-more-info-prices__value' ).html( data.data.new_price );
 							}
 
 							if ( data.data.type != '' ) {	// If type is not empty.
-								$( '.cwp-more-info-type' ).html( data.data.type );
+								$( '.cwp-more-info-type .cwp-product__value' ).html( data.data.type );
 							}
 
 							if ( data.data.material != '' ) {	// If new price is not empty.
-								$( '.cwp-more-info-material' ).html( data.data.material );
+								$( '.cwp-more-info-material .cwp-product__value' ).html( data.data.material );
 							}
 
 							if ( data.data.width != '' ) {	// If width is not empty.
-								$( '.cwp-more-info-width' ).html( data.data.width );
+								$( '.cwp-more-info-width .cwp-product__value' ).html( data.data.width );
 							}
 
 							if ( data.data.height != '' ) {	// If height is not empty.
-								$( '.cwp-more-info-height' ).html( data.data.height );
+								$( '.cwp-more-info-height .cwp-product__value' ).html( data.data.height );
 							}
 
 							if ( data.data.depth != '' ) {	// If depth is not empty.
-								$( '.cwp-more-info-depth' ).html( data.data.depth );
+								$( '.cwp-more-info-depth .cwp-product__value' ).html( data.data.depth );
 							}
 
 							if ( data.data.text != '' ) {	// If text is not empty.
-								$( '.cwp-more-info-text' ).html( data.data.text );
+								$( '.cwp-more-info-text .cwp-product__value' ).html( data.data.text );
 							}
 
 							if ( data.data.per_pack != '' ) {	// If number of products per pack is not empty.
-								$( '.cwp-more-info-number-per-pack' ).html( data.data.per_pack );
+								$( '.cwp-more-info-number-per-pack .cwp-product__value' ).html( data.data.per_pack );
 							}
 
 							if ( data.data.manufacture != '' ) {	// If manufacture country is not empty.
-								$( '.cwp-more-info-manufacture-country' ).html( data.data.manufacture );
+								$( '.cwp-more-info-manufacture-country .cwp-product__value' ).html( data.data.manufacture );
 							}
 
 							if ( data.data.brand != '' ) {	// If brand country is not empty.
-								$( '.cwp-more-info-brand-country' ).html( data.data.brand );
+								$( '.cwp-more-info-brand-country .cwp-product__value' ).html( data.data.brand );
 							}
 
 							if ( data.data.guarantee != '' ) {	// If depth is not empty.
-								$( '.cwp-more-info-guarantee' ).html( data.data.guarantee );
+								$( '.cwp-more-info-guarantee .cwp-product__value' ).html( data.data.guarantee );
 							}
 
 							console.log( data.data.message );	// Show success message in console.
