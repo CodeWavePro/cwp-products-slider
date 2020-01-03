@@ -37,6 +37,7 @@ jQuery( function( $ ) {
 				autoplay 			: true,
 				items 				: sliderItems,
 		    	loop 				: true,
+		    	slideBy 			: 'page',
 			    margin 				: 30,
 			    autoplayHoverPause 	: true,
 			    autoplayTimeout		: sliderTimer,
@@ -44,19 +45,24 @@ jQuery( function( $ ) {
 			    dots 				: true,
 			    responsive			: {
 			    	0: {
-			    		items: 1
+			    		autoplay 	: false,
+			    		items 		: 1
 			    	},
 			    	500: {
-			    		items: 2
+			    		autoplay 	: false,
+			    		items 		: 2
 			    	},
 			    	800: {
-			    		items: 3
+			    		autoplay 	: false,
+			    		items 		: 3
 			    	},
 			    	1200: {
-			    		items: 4
+			    		autoplay 	: true,
+			    		items 		: 4
 			    	},
 			    	1600: {
-			    		items: sliderItems
+			    		autoplay 	: true,
+			    		items 		: sliderItems
 			    	}
 			    }
 		    } );
