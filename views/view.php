@@ -3,6 +3,8 @@ if ( !defined( 'FW' ) ) {
 	die( 'Forbidden' );
 }
 
+$taxonomy = 'showcase';
+
 $is_auto = ( isset( $atts['is_auto'] ) && ( $atts['is_auto']['fill'] === 'auto_fill' ) ) ? true : false;
 
 // Slides count per one screen.
@@ -25,12 +27,12 @@ $currency_icon = ( isset( $atts['currency_icon'] ) && $atts['currency_icon'] ) ?
 $preloader_icon = ( isset( $atts['preloader_icon'] ) && $atts['preloader_icon'] ) ? $atts['preloader_icon']['icon-class'] : '';
 ?>
 
-<section class = "fw-main-row section-cwp-products-slider" style = "background-color: <?php echo esc_attr( $slider_bg_color ) ?>">
+<section class = "fw-main-row section-products-slider" style = "background-color: <?php echo esc_attr( $slider_bg_color ) ?>">
 	<div class = "fw-container-fluid">
 		<div class = "fw-row">
 			<div class = "fw-col-xs-12">
 				<!-- Slider wrapper. -->
-				<div class = "cwp-product-slider owl-carousel owl-theme"
+				<div class = "product-slider owl-carousel owl-theme"
 					 data-slides = "<?php echo esc_attr( $slides_per_screen ) ?>"
 					 data-timer = "<?php echo esc_attr( $timer ) ?>"
 					 data-preloader = "<?php echo esc_attr( $preloader_icon ) ?>"
@@ -51,15 +53,15 @@ $preloader_icon = ( isset( $atts['preloader_icon'] ) && $atts['preloader_icon'] 
 						while ( $loop->have_posts() ) : $loop->the_post();
 							$id = get_the_ID();	// Current product ID.
 							?>
-							<div class = "cwp-slide">
-								<div class = "cwp-slide-image" style = "background-image: url(<?php echo esc_url( get_the_post_thumbnail_url( $id, 'medium' ) ) ?>)">
+							<div class = "product">
+								<div class = "product-image" style = "background-image: url(<?php echo esc_url( get_the_post_thumbnail_url( $id, 'medium' ) ) ?>)">
 									<!-- Overlays are showing when PLUS icon is clicked. -->
-									<div class = "button-slide-overlay-before_brand"></div>
-									<div class = "button-slide-overlay-before"></div>
+									<div class = "button-overlay-before_brand"></div>
+									<div class = "button-overlay-before"></div>
 
 									<!-- Buttons are showing when PLUS icon is clicked. -->
-									<div class = "button-slide-overlay animated">
-										<a class = "button cwp-slide-more-info-button animated" href = "#" data-id = "<?php echo esc_attr( $id ) ?>">
+									<div class = "button-overlay animated">
+										<a class = "button more-info-button animated" href = "#" data-id = "<?php echo esc_attr( $id ) ?>">
 											<?php esc_html_e( 'Больше информации', 'mebel-laim' ) ?>
 										</a>
 										<a class = "button animated" href = "#" style = "animation-delay: 150ms">
@@ -76,22 +78,22 @@ $preloader_icon = ( isset( $atts['preloader_icon'] ) && $atts['preloader_icon'] 
 									<!-- PLUS icon. -->
 									<a href = "#" class = "product-actions" title = "<?php esc_attr_e( 'Действия', 'mebel-laim' ) ?>" data-clicked = "0">
 										<!-- Horizontal line. -->
-						 				<span class = "line"></span>
+						 				<span class = "product-actions__line"></span>
 						 				<!-- Vertical line. -->
-						 				<span class = "line line__cross"></span>
+						 				<span class = "product-actions__line product-actions__line_cross"></span>
 						 			</a>
-								</div><!-- .cwp-slide-image -->
+								</div><!-- .product-image -->
 
-								<div class = "cwp-slide-term">
+								<div class = "product-term">
 						 			<?php
 						 			// Getting all terms of current product in taxonomy "showcase".
-						 			$terms = wp_get_post_terms( $id, 'showcase' );
+						 			$terms = wp_get_post_terms( $id, $taxonomy );
 
 						 			// Searching if one of terms has no child terms - this is the lowest term, we need it.
 						 			foreach ( $terms as $term ) {
-						 				if ( count( get_term_children( $term->term_id, 'showcase' ) ) === 0 ) {
+						 				if ( count( get_term_children( $term->term_id, $taxonomy ) ) === 0 ) {
 						 					?>
-						 					<a class = "cwp-slide-term__link" href = "<?php echo esc_url( get_term_link( $term->term_id, 'showcase' ) ) ?>">
+						 					<a class = "product-term__link" href = "<?php echo esc_url( get_term_link( $term->term_id, $taxonomy ) ) ?>">
 						 						<?php printf( esc_html__( '%s', 'mebel-laim' ), $term->name ) ?>
 						 					</a>
 						 					<?php
@@ -99,16 +101,16 @@ $preloader_icon = ( isset( $atts['preloader_icon'] ) && $atts['preloader_icon'] 
 						 				}
 						 			}
 						 			?>
-						 		</div><!-- .cwp-slide-term -->
+						 		</div><!-- .product-term -->
 
-								<div class = "cwp-slide-info">
-									<div class = "cwp-slide-title">
-							 			<h3 class = "cwp-slide-text__header">
+								<div class = "product-info">
+									<div class = "product-title">
+							 			<h3 class = "product-text__header">
 							 				<?php the_title() ?>
 							 			</h3>
 							 		</div>
 
-							 		<div class = "cwp-slide-price">
+							 		<div class = "product-price">
 							 			<?php
 						 				/**
 						 				 * If product new price is not empty.
@@ -117,20 +119,20 @@ $preloader_icon = ( isset( $atts['preloader_icon'] ) && $atts['preloader_icon'] 
 						 				 */
 							 			if ( fw_get_db_post_option( $id, 'new_price' ) ) {
 							 				?>
-							 				<span class = "cwp-slide-price__new">
+							 				<span class = "product-price__new">
 							 					<?php echo number_format( fw_get_db_post_option( $id, 'new_price' ), 0, '.', ' ' ) ?>
 							 					<!--
 							 					RUBLE icon for currency (from Font Awesome Icons).
 							 					@link https://fontawesome.com/icons
 							 					-->
-							 					<span class = "cwp-slide-price__currency"><i class = "fas fa-ruble-sign"></i></span>
+							 					<span class = "product-price__currency"><i class = "fas fa-ruble-sign"></i></span>
 							 				</span>
 							 				<?php
 							 			}
 							 			?>
-							 		</div><!-- .cwp-slide-price -->
-								</div><!-- .cwp-slide-info -->
-							</div><!-- .cwp-slide -->
+							 		</div><!-- .product-price -->
+								</div><!-- .product-info -->
+							</div><!-- .product -->
 							<?php
 						endwhile;
 						wp_reset_query();	// Clearing query for correct work of other loops.
@@ -139,15 +141,15 @@ $preloader_icon = ( isset( $atts['preloader_icon'] ) && $atts['preloader_icon'] 
 							 $atts['is_auto']['manually_fill']['slider'] ) {
 							foreach ( $atts['is_auto']['manually_fill']['slider'] as $id ) {
 								?>
-								<div class = "cwp-slide">
-									<div class = "cwp-slide-image" style = "background-image: url(<?php echo esc_url( get_the_post_thumbnail_url( $id, 'medium' ) ) ?>)">
+								<div class = "product">
+									<div class = "product-image" style = "background-image: url(<?php echo esc_url( get_the_post_thumbnail_url( $id, 'medium' ) ) ?>)">
 										<!-- Overlays are showing when PLUS icon is clicked. -->
-										<div class = "button-slide-overlay-before_brand"></div>
-										<div class = "button-slide-overlay-before"></div>
+										<div class = "button-overlay-before_brand"></div>
+										<div class = "button-overlay-before"></div>
 
 										<!-- Buttons are showing when PLUS icon is clicked. -->
-										<div class = "button-slide-overlay animated">
-											<a class = "button cwp-slide-more-info-button animated" href = "#" data-id = "<?php echo esc_attr( $id ) ?>">
+										<div class = "button-overlay animated">
+											<a class = "button more-info-button animated" href = "#" data-id = "<?php echo esc_attr( $id ) ?>">
 												<?php esc_html_e( 'Больше информации', 'mebel-laim' ) ?>
 											</a>
 											<a class = "button animated" href = "#" style = "animation-delay: 150ms">
@@ -164,22 +166,22 @@ $preloader_icon = ( isset( $atts['preloader_icon'] ) && $atts['preloader_icon'] 
 										<!-- PLUS icon. -->
 										<a href = "#" class = "product-actions" title = "<?php esc_attr_e( 'Действия', 'mebel-laim' ) ?>" data-clicked = "0">
 											<!-- Horizontal line. -->
-							 				<span class = "line"></span>
+							 				<span class = "product-actions__line"></span>
 							 				<!-- Vertical line. -->
-							 				<span class = "line line__cross"></span>
+							 				<span class = "product-actions__line product-actions__line_cross"></span>
 							 			</a>
-									</div><!-- .cwp-slide-image -->
+									</div><!-- .slide-image -->
 
-									<div class = "cwp-slide-term">
+									<div class = "product-term">
 							 			<?php
 							 			// Getting all terms of current product in taxonomy "showcase".
-							 			$terms = wp_get_post_terms( $id, 'showcase' );
+							 			$terms = wp_get_post_terms( $id, $taxonomy );
 
 							 			// Searching if one of terms has no child terms - this is the lowest term, we need it.
 							 			foreach ( $terms as $term ) {
-							 				if ( count( get_term_children( $term->term_id, 'showcase' ) ) === 0 ) {
+							 				if ( count( get_term_children( $term->term_id, $taxonomy ) ) === 0 ) {
 							 					?>
-							 					<a class = "cwp-slide-term__link" href = "<?php echo esc_url( get_term_link( $term->term_id, 'showcase' ) ) ?>">
+							 					<a class = "product-term__link" href = "<?php echo esc_url( get_term_link( $term->term_id, $taxonomy ) ) ?>">
 							 						<?php printf( esc_html__( '%s', 'mebel-laim' ), $term->name ) ?>
 							 					</a>
 							 					<?php
@@ -187,16 +189,16 @@ $preloader_icon = ( isset( $atts['preloader_icon'] ) && $atts['preloader_icon'] 
 							 				}
 							 			}
 							 			?>
-							 		</div><!-- .cwp-slide-term -->
+							 		</div><!-- .product-term -->
 
-									<div class = "cwp-slide-info">
-										<div class = "cwp-slide-title">
-								 			<h3 class = "cwp-slide-text__header">
+									<div class = "product-info">
+										<div class = "product-title">
+								 			<h3 class = "product-text__header">
 								 				<?php echo get_the_title( $id ) ?>
 								 			</h3>
 								 		</div>
 
-								 		<div class = "cwp-slide-price">
+								 		<div class = "product-price">
 								 			<?php
 							 				/**
 							 				 * If product new price is not empty.
@@ -205,59 +207,59 @@ $preloader_icon = ( isset( $atts['preloader_icon'] ) && $atts['preloader_icon'] 
 							 				 */
 								 			if ( fw_get_db_post_option( $id, 'new_price' ) ) {
 								 				?>
-								 				<span class = "cwp-slide-price__new">
+								 				<span class = "product-price__new">
 								 					<?php echo number_format( fw_get_db_post_option( $id, 'new_price' ), 0, '.', ' ' ) ?>
-								 					<span class = "cwp-slide-price__currency">
+								 					<span class = "product-price__currency">
 								 						<?php echo $currency_icon ?>
 								 					</span>
 								 				</span>
 								 				<?php
 								 			}
 								 			?>
-								 		</div><!-- .cwp-slide-price -->
-									</div><!-- .cwp-slide-info -->
-								</div><!-- .cwp-slide -->
+								 		</div><!-- .product-price -->
+									</div><!-- .product-info -->
+								</div><!-- .product -->
 								<?php
 							}
 						}
 					}
 					?>
 
-				</div><!-- .cwp-product-slider -->
+				</div><!-- .product-slider -->
 			</div><!-- .fw-col-xs-12 -->
 		</div><!-- .fw-row -->
 	</div><!-- .fw-container -->
-</section><!-- .fw-main-row.section-cwp-products-slider -->
+</section><!-- .fw-main-row.section-products-slider -->
 
-<!-- Hidden block to show more info about product, when .cwp-slide-more-info-button is clicked. -->
-<div class = "cwp-more-info-wrapper animated">
+<!-- Hidden block to show more info about product, when .slide-more-info-button is clicked. -->
+<div class = "more-info-wrapper animated">
 	<!-- Close wrapper. -->
 	<a href = "#" class = "close-popup" title = "<?php esc_attr_e( 'Действия', 'mebel-laim' ) ?>" data-clicked = "0">
 		<!-- Horizontal line. -->
-		<span class = "line"></span>
+		<span class = "product-actions__line"></span>
 		<!-- Vertical line. -->
-		<span class = "line line__cross"></span>
+		<span class = "product-actions__line product-actions__line_cross"></span>
 	</a>
 
 	<!-- More information about product: fields & buttons. -->
-	<div class = "cwp-more-info animated">
+	<div class = "more-info animated">
 		<!-- Product name. -->
-		<h2 class = "cwp-more-info__title vertical-line-for-header"></h2>
+		<h2 class = "more-info__title vertical-line-for-header"></h2>
 
 		<!-- Prices: old & actual. -->
-		<div class = "cwp-more-info-prices">			
-			<span class = "cwp-more-info-prices__old">
-				<span class = "cwp-more-info-prices__value"></span>
+		<div class = "more-info-prices">			
+			<span class = "more-info-prices__old">
+				<span class = "more-info-prices__value"></span>
 			</span>
-			<span class = "cwp-more-info-prices__new">
-				<span class = "cwp-more-info-prices__value"></span>
-				<span class = "cwp-more-info-prices__currency">
+			<span class = "more-info-prices__new">
+				<span class = "more-info-prices__value"></span>
+				<span class = "more-info-prices__currency">
 					<?php echo $currency_icon ?>
 				</span>
 			</span>
 		</div>
 
-		<div class = "cwp-more-info-item cwp-more-info-colors animated"></div>
+		<div class = "more-info-item more-info-colors animated"></div>
 
 		<?php
 		// Icon for every specification field.
@@ -266,86 +268,86 @@ $preloader_icon = ( isset( $atts['preloader_icon'] ) && $atts['preloader_icon'] 
 							  '';
 		?>
 
-		<div class = "cwp-more-info-item cwp-more-info-type animated">
+		<div class = "more-info-item more-info-type animated">
 			<span class = "product__label">
 				<?php echo $specification_icon . ' ' . esc_html__( 'Тип:', 'mebel-laim' ) ?>
 			</span>
-			<span class = "cwp-product__value"></span>
+			<span class = "product__value"></span>
 		</div>
-		<div class = "cwp-more-info-item cwp-more-info-material animated">
+		<div class = "more-info-item more-info-material animated">
 			<span class = "product__label">
 				<?php echo $specification_icon . ' ' . esc_html__( 'Материал:', 'mebel-laim' ) ?>
 			</span>
-			<span class = "cwp-product__value"></span>
+			<span class = "product__value"></span>
 		</div>
-		<div class = "cwp-more-info-item cwp-more-info-width animated">
+		<div class = "more-info-item more-info-width animated">
 			<span class = "product__label">
 				<?php echo $specification_icon . ' ' . esc_html__( 'Длина:', 'mebel-laim' ) ?>
 			</span>
-			<span class = "cwp-product__value"></span>
+			<span class = "product__value"></span>
 		</div>
-		<div class = "cwp-more-info-item cwp-more-info-height animated">
+		<div class = "more-info-item more-info-height animated">
 			<span class = "product__label">
 				<?php echo $specification_icon . ' ' . esc_html__( 'Высота:', 'mebel-laim' ) ?>
 			</span>
-			<span class = "cwp-product__value"></span>
+			<span class = "product__value"></span>
 		</div>
-		<div class = "cwp-more-info-item cwp-more-info-depth animated">
+		<div class = "more-info-item more-info-depth animated">
 			<span class = "product__label">
 				<?php echo $specification_icon . ' ' . esc_html__( 'Глубина:', 'mebel-laim' ) ?>
 			</span>
-			<span class = "cwp-product__value"></span>
+			<span class = "product__value"></span>
 		</div>
-		<div class = "cwp-more-info-item cwp-more-info-manufacture-country animated">
+		<div class = "more-info-item more-info-manufacture-country animated">
 			<span class = "product__label">
 				<?php echo $specification_icon . ' ' . esc_html__( 'Количество в упаковке:', 'mebel-laim' ) ?>
 			</span>
-			<span class = "cwp-product__value"></span>
+			<span class = "product__value"></span>
 		</div>
-		<div class = "cwp-more-info-item cwp-more-info-brand-country animated">
+		<div class = "more-info-item more-info-brand-country animated">
 			<span class = "product__label">
 				<?php echo $specification_icon . ' ' . esc_html__( 'Производитель:', 'mebel-laim' ) ?>
 			</span>
-			<span class = "cwp-product__value"></span>
+			<span class = "product__value"></span>
 		</div>
-		<div class = "cwp-more-info-item cwp-more-info-guarantee animated">
+		<div class = "more-info-item more-info-guarantee animated">
 			<span class = "product__label">
 				<?php echo $specification_icon . ' ' . esc_html__( 'Страна производства:', 'mebel-laim' ) ?>
 			</span>
-			<span class = "cwp-product__value"></span>
+			<span class = "product__value"></span>
 		</div>
-		<div class = "cwp-more-info-item cwp-more-info-number-per-pack animated">
+		<div class = "more-info-item more-info-number-per-pack animated">
 			<span class = "product__label">
 				<?php echo $specification_icon . ' ' . esc_html__( 'Гарантия:', 'mebel-laim' ) ?>
 			</span>
-			<span class = "cwp-product__value"></span>
+			<span class = "product__value"></span>
 		</div>
-		<div class = "cwp-more-info-item cwp-more-info-text animated">
+		<div class = "more-info-item more-info-text animated">
 			<span class = "product__label">
 				<?php echo $specification_icon . ' ' . esc_html__( 'Дополнительная информация:', 'mebel-laim' ) ?>
 			</span>
-			<span class = "cwp-product__value"></span>
+			<span class = "product__value"></span>
 		</div>
 
 		<!-- Buttons wrapper. -->
-		<div class = "cwp-more-info-buttons">
-			<a class = "button cwp-more-info_button button_go-to-product" href = "#">
+		<div class = "more-info-buttons">
+			<a class = "button more-info_button button_go-to-product" href = "#">
 				<?php esc_html_e( 'На страницу товара', 'mebel-laim' ) ?>
 			</a>
-			<a class = "button cwp-more-info_button button_add-to-cart" href = "#">
+			<a class = "button more-info_button button_add-to-cart" href = "#">
 				<?php esc_html_e( 'Добавить в корзину', 'mebel-laim' ) ?>
 			</a>
-			<a class = "button cwp-more-info_button button_quick-order" href = "#">
+			<a class = "button more-info_button button_quick-order" href = "#">
 				<?php esc_html_e( 'Быстрый заказ', 'mebel-laim' ) ?>
 			</a>
 		</div>
-	</div><!-- .cwp-more-info -->
+	</div><!-- .more-info -->
 
 	<!-- Right part with images. -->
-	<div class = "cwp-more-info-right">
+	<div class = "more-info-right">
 		<!-- Product image. -->
-		<div class = "cwp-more-info-image-wrapper animated"></div>
+		<div class = "more-info-image-wrapper animated"></div>
 		<!-- More product images (if exist). -->
-		<div class = "cwp-more-info-images animated"></div>
+		<div class = "more-info-images animated"></div>
 	</div>
-</div><!-- .cwp-more-info-wrapper -->
+</div><!-- .more-info-wrapper -->
