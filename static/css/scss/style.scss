@@ -11,13 +11,7 @@ $text: #323232;
 
 // Slider section stilization.
 .section-products-slider {
-    padding: 0;
-
-    .fw-col-xs-12 {
-        padding: 0;
-        left: 20%;
-        width: 80%
-    }
+    padding: 0
 }
 
 /**
@@ -31,10 +25,6 @@ $text: #323232;
 	 */
 	.owl-item {
 		overflow: hidden
-	}
-
-	.owl-stage-outer {
-		margin: 0 0 15px
 	}
 
     &.owl-carousel {
@@ -92,50 +82,23 @@ $text: #323232;
     }
 }
 
-/*** Media queries ***/
-@media (max-width : 991px) {
-    .section-products-slider {
-        .fw-col-xs-12 {
-            left: 14%;
-            width: 86%
-        }
+@media all and (min-width: 768px) {
+    .product-slider {
+        padding: 0 15px
     }
 }
 
-@media (max-width : 800px) {
+@media all and (min-width: 1200px) {
     .section-products-slider {
         .fw-col-xs-12 {
-            padding: 0 15px;
+            padding: 0;
             left: 50%;
-            width: 100%;
-            margin-left: -375px
-        }
-    }
-}
-
-@media (max-width : 767px) {
-    .fw-main-row {
-        .fw-container-fluid {
-            padding: 0 15px
-        }
-    }
-
-    .section-products-slider {
-        .fw-col-xs-12 {
-            left: 0;
-            margin-left: 0
+            margin-left: -570px;
+            width: calc(100% - ((100% - 1170px) / 2))
         }
     }
 
     .product-slider {
-        &.owl-theme {
-            .owl-dots {
-                .owl-dot {
-                    span {
-                        width: 50px
-                    }
-                }
-            }
-        }
+        padding: 0
     }
 }

@@ -34,12 +34,12 @@ jQuery( function( $ ) {
 			    		autoplay 	: false,
 			    		items 		: 1
 			    	},
-			    	500: {
+			    	640: {
 			    		autoplay 	: false,
 			    		items 		: 2
 			    	},
-			    	800: {
-			    		autoplay 	: false,
+			    	992: {
+			    		autoplay 	: true,
 			    		items 		: 3
 			    	},
 			    	1200: {
